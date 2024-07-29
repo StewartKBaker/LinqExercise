@@ -32,7 +32,11 @@ namespace LinqExercise
             
             //TODO: Order numbers in ascending order and print to the console
             Console.WriteLine("Order by Ascending:");
-            numbers.OrderBy(x =>x).ToList().ForEach(x => Console.WriteLine(x));
+            var ordered = numbers.OrderBy(x =>x);
+            foreach (var x in ordered)
+            {
+                Console.WriteLine(x);
+            }
             Console.WriteLine("---------------------------");
             
             //TODO: Order numbers in descending order and print to the console
@@ -74,18 +78,19 @@ namespace LinqExercise
 
             //TODO: Print the Sum of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
             Console.WriteLine("Sum of YOE:");
-            Console.WriteLine(employees.Where(x => x.YearsOfExperience <= 10 && x.Age > 35).Sum(x => x.YearsOfExperience));
+            var filtered = employees.Where(x => x.YearsOfExperience <= 10 && x.Age > 35);
+            Console.WriteLine(filtered.Sum(x => x.YearsOfExperience));
             Console.WriteLine("---------------------------");
 
             //TODO: Now print the Average of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
             Console.WriteLine("Average of YOE:");
-            Console.WriteLine(employees.Where(x => x.YearsOfExperience <= 10 && x.Age > 35).Average(x => x.YearsOfExperience));
+            Console.WriteLine(filtered.Average(x => x.YearsOfExperience));
             Console.WriteLine("---------------------------");
 
             //TODO: Add an employee to the end of the list without using employees.Add()
-            Employee Stewart = new Employee("Stewart", "Baker", 20, 1);
+            employees = employees.Append(new Employee("Stewart", "Baker", 20, 1)).ToList();
             Console.WriteLine("New Employee:");
-            employees.Append(Stewart).Where(x => x.FirstName == "Stewart").ToList().ForEach(x => Console.WriteLine($"{x.FullName}, Age: {x.Age}\n{x.YearsOfExperience} Year of Experience"));
+            Console.WriteLine(employees[employees.Count-1].FullName);
             
 
 
